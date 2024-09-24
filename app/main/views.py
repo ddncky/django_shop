@@ -5,11 +5,9 @@ from goods.models import Category
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    categories = Category.objects.all()
     context = {
         "title": "Home - главная", 
         "content": "Магазин мебели HOME",
-        "categories": categories
         }
     
     return render(request=request, template_name="main_templates/index.html", context=context)
