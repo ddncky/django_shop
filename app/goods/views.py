@@ -12,5 +12,10 @@ def catalog(request: HttpRequest):
     return render(request=request, template_name="goods_templates/catalog.html", context=context)
 
 
-def product(request: HttpRequest) -> HttpResponse:
-    return render(request=request, template_name="goods_templates/product.html")
+def product(request: HttpRequest, product_slug: int) -> HttpResponse:
+    product = Product.objects.get(slug=product_slug)
+
+    context = {
+        "product": product
+    }
+    return render(request=request, template_name="goods_templates/product.html", context=context)
