@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
+from django.views.generic import ListView
 
 from goods.models import Category
 
@@ -31,6 +32,23 @@ def delivery_and_payment(request: HttpRequest) -> HttpResponse:
         }
     
     return render(request=request, template_name="main_templates/about.html", context=context)
+
+
+class DeliveryAndPaymentView(ListView):
+    model = Category
+    template_name = "main_templates/about.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context_dict = {
+        "title": "Home - доставка и оплата", 
+        "content": "Доставка и оплата осуществляются:",
+        "text_on_page": "Если вы хотите заказать наш товар, то для начала подумайте о том, что потребление и деньги - зло!"
+        }
+        context.update(context_dict)
+        return context
+    
+
 
 
 def contact_info(request: HttpRequest) -> HttpResponse:

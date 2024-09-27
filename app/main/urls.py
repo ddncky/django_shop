@@ -7,5 +7,6 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("about/", views.about, name="about"),
     path("info/", views.contact_info, name="contact_info"),
-    path("delivery_and_payment/", views.delivery_and_payment, name="delivery_and_payment")
+    #path("delivery_and_payment/", views.delivery_and_payment, name="delivery_and_payment")
+    path("delivery_and_payment/", views.DeliveryAndPaymentView.as_view(), name="delivery_and_payment")
 ]
