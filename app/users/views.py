@@ -1,3 +1,4 @@
+import re
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponseRedirect
@@ -18,9 +19,9 @@ def login(request: HttpRequest):
                 auth.login(request, user)
                 messages.success(request, f"{username}, вы вошли в аккаунт.")
 
-                is_next = request.POST.get("next", None)
-                if is_next:
-                    return HttpResponseRedirect(is_next)
+                redirect_page = request.POST.get("next", None)
+                if redirect_page and redirect_page != reverse("user:logout"):
+                    return HttpResponseRedirect(redirect_page)
                 return HttpResponseRedirect(reverse("main:index"))
     else:
         form = UserLoginForm()
@@ -76,3 +77,6 @@ def logout(request: HttpRequest):
     auth.logout(request)
     return redirect(reverse("main:index"))
     
+
+def users_cart(request: HttpRequest):
+    return render(request=request, template_name="users_templates/users_cart.html")
